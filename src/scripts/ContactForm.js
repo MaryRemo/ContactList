@@ -1,4 +1,5 @@
 import contactCollection from "./ContactCollection"
+import contactList from "./ContactList";
 
 const contactForm = {
     createAndAppendForm() {
@@ -46,7 +47,7 @@ const contactForm = {
         submitButton.textContent = "Add Contact"
         submitButton.setAttribute("class", "contact-save")
 
-        submitButton.addEventListener("click", contactForm.handleAddNewContact)
+        submitButton.addEventListener("click", this.handleAddNewContact)
 
         let contactFormFragment = document.createDocumentFragment()
         contactFormFragment.appendChild(formHeader)
@@ -70,10 +71,13 @@ const contactForm = {
             number: inputContactNumber,
             address: inputContactAddress
         }
-        contactCollection.postAllContacts(newContact)
-
-        }
+    contactCollection.postAllContacts(newContact)
+    .then(response => {
+       contactList.contactify()
+       console.log(response)
+        })
     }
+}
 
 
 export default contactForm;
